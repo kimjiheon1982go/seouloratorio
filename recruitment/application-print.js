@@ -6,6 +6,9 @@ const appendix = document.querySelector("#application-appendix");
 const overflow = document.querySelector("#application-overflow");
 const pdfButton = document.querySelector("#save-pdf");
 const pdfStatus = document.querySelector("#pdf-status");
+const submitButton = document.querySelector("#submit-application");
+let preparing = false;
+let attachment;
 
 function place(element, left, top, width, height) {
   element.style.left = `${left / 724 * 100}%`;
@@ -15,9 +18,7 @@ function place(element, left, top, width, height) {
   values.append(element);
 }
 
-pdfButton.addEventListener("click", async () => {
-  pdfButton.disabled = true;
-  pdfStatus.textContent = "";
+async function withPreparedApplication(usePages) {
   const data = new FormData(application);
   const value = (name) => String(data.get(name) ?? "").trim();
   const photoInput = document.querySelector("#photo");
@@ -48,7 +49,7 @@ pdfButton.addEventListener("click", async () => {
   };
 
   try {
-    if (file && !photoInput.reportValidity()) return;
+    if (file && !photoInput.checkValidity()) throw new Error(photoInput.validationMessage);
     await template.decode();
     await document.fonts.ready;
     addValue("성명", [260, 169, 291, 22]);
@@ -96,12 +97,96 @@ pdfButton.addEventListener("click", async () => {
       place(image, 567, 169, 98, 131);
     }
     appendix.hidden = overflow.childElementCount === 0;
-    window.print();
-  } catch {
-    pdfStatus.textContent = "인쇄용 지원서를 준비하지 못했습니다. 사진 파일을 확인하고 다시 시도해 주세요.";
+    await usePages();
   } finally {
     if (photoUrl) URL.revokeObjectURL(photoUrl);
     printArea.classList.remove("preparing");
+  }
+}
+
+async function createAttachment() {
+  const {jsPDF} = window.jspdf;
+  const pdf = new jsPDF({unit: "mm", format: "a4", compress: true});
+  const capture = (element) => window.html2canvas(element, {scale: 2, backgroundColor: "#fff"});
+  const front = await capture(printArea.querySelector(".application-sheet"));
+  pdf.addImage(front.toDataURL("image/jpeg", 0.94), "JPEG", 0, 0, 210, 297);
+
+  if (!appendix.hidden) {
+    const extra = await capture(appendix);
+    const pixelsPerMm = extra.width / 210;
+    const maxHeight = Math.floor(273 * pixelsPerMm);
+    const context = extra.getContext("2d");
+    for (let start = 0; start < extra.height;) {
+      let end = Math.min(start + maxHeight, extra.height);
+      if (end < extra.height) {
+        // Break between text lines when a continuation spans multiple pages.
+        const searchHeight = Math.min(100, end - start);
+        const rows = context.getImageData(0, end - searchHeight, extra.width, searchHeight).data;
+        const stride = extra.width * 4;
+        for (let row = searchHeight - 1; row >= 0; row--) {
+          const offset = row * stride;
+          const hasInk = rows.subarray(offset, offset + stride)
+            .some((channel, index) => index % 4 === 0 && channel < 245);
+          if (!hasInk) {
+            end -= searchHeight - row - 1;
+            break;
+          }
+        }
+      }
+      const page = document.createElement("canvas");
+      page.width = extra.width;
+      page.height = end - start;
+      page.getContext("2d").drawImage(extra, 0, start, page.width, page.height,
+        0, 0, page.width, page.height);
+      pdf.addPage();
+      pdf.addImage(page.toDataURL("image/jpeg", 0.94), "JPEG", 0, 12, 210, page.height / pixelsPerMm);
+      start = end;
+    }
+  }
+  const blob = pdf.output("blob");
+  if (blob.size >= 10_000_000) throw new Error("PDF is over the attachment limit");
+  return new File([blob], "Seoul-Oratorio-Application.pdf", {type: "application/pdf"});
+}
+
+async function preparePdf(usePages, status) {
+  if (preparing) return;
+  preparing = true;
+  pdfButton.disabled = true;
+  submitButton.disabled = true;
+  pdfStatus.textContent = status;
+  try {
+    await withPreparedApplication(usePages);
+  } catch {
+    pdfStatus.textContent = "PDF를 만들지 못했습니다. 사진 파일을 확인하고 다시 시도해 주세요.";
+    return;
+  } finally {
+    preparing = false;
     pdfButton.disabled = false;
+    submitButton.disabled = false;
+  }
+  pdfStatus.textContent = "";
+}
+
+pdfButton.addEventListener("click", () => preparePdf(() => window.print(), ""));
+
+application.addEventListener("formdata", (event) => {
+  if (attachment) event.formData.set("attachment", attachment);
+});
+
+application.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  if (preparing) return;
+  application.inert = true;
+  try {
+    await preparePdf(async () => {
+      attachment = await createAttachment();
+      // Native submission preserves FormSubmit's CAPTCHA and confirmation flow.
+      HTMLFormElement.prototype.submit.call(application);
+    }, "제출용 PDF를 만드는 중입니다.");
+  } finally {
+    attachment = undefined;
+    application.inert = false;
   }
 });
+
+submitButton.disabled = false;

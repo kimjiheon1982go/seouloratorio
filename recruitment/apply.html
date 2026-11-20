@@ -37,7 +37,7 @@
 <label class="wide">이메일 *<input type="email" name="이메일" autocomplete="email" maxlength="254" required></label>
 <label>우편번호<input name="우편번호" autocomplete="postal-code" inputmode="numeric" pattern="[0-9]{5}" maxlength="5"></label>
 <label>주소<input name="주소" autocomplete="street-address" maxlength="250"></label>
-<label class="wide">증명사진(3×4cm)<input id="photo" type="file" name="attachment" accept="image/jpeg,image/png"><small>JPG 또는 PNG, 최대 5MB</small></label>
+<label class="wide">증명사진(3×4cm)<input id="photo" type="file" accept="image/jpeg,image/png"><small>JPG 또는 PNG, 최대 5MB</small></label>
 </div>
 </fieldset>
 <fieldset>
@@ -59,10 +59,10 @@
 <label class="consent"><input type="checkbox" name="개인정보 수집 및 전송 동의" value="동의" required><span>지원서에 입력한 개인정보와 사진이 지원 접수 확인 및 연락을 위해 FormSubmit을 거쳐 지정된 이메일로 전송되는 데 동의합니다. *</span></label>
 </fieldset>
 <div class="actions">
-<button class="button" type="submit">지원서 제출</button>
+<button class="button" id="submit-application" type="submit" disabled>지원서 제출</button>
 <button class="button outline" id="save-pdf" type="button">PDF로 저장</button>
 </div>
-<p class="section-note">인쇄 창에서 ‘PDF로 저장’을 선택하세요.</p>
+<p class="section-note">제출하면 작성 내용과 사진을 담은 PDF가 첨부됩니다. 사본이 필요하면 ‘PDF로 저장’을 눌러 주세요.</p>
 <p id="pdf-status" role="status"></p>
 </form>
 </section>
@@ -79,6 +79,8 @@
 </section>
 </div>
 <script src="application.js" defer></script>
+<script src="vendor/html2canvas-1.4.1.min.js" defer></script>
+<script src="vendor/jspdf-4.2.1.min.js" defer></script>
 <script src="application-print.js" defer></script>
 </body>
 </html>
