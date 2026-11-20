@@ -6,6 +6,7 @@
 <meta name="description" content="서울오라토리오 합창단 온라인 지원서입니다.">
 <title>온라인 지원서 | 서울오라토리오</title>
 <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="application-print.css">
 </head>
 <body>
 <header><div class="wrap bar"><a class="brand" href="./">SEOUL ORATORIO <small>EST. 1991</small></a><nav aria-label="페이지 메뉴"><a href="./">모집 페이지로 돌아가기</a></nav></div></header>
@@ -57,11 +58,27 @@
 </div>
 <label class="consent"><input type="checkbox" name="개인정보 수집 및 전송 동의" value="동의" required><span>지원서에 입력한 개인정보와 사진이 지원 접수 확인 및 연락을 위해 FormSubmit을 거쳐 지정된 이메일로 전송되는 데 동의합니다. *</span></label>
 </fieldset>
+<div class="actions">
 <button class="button" type="submit">지원서 제출</button>
+<button class="button outline" id="save-pdf" type="button">PDF로 저장</button>
+</div>
+<p class="section-note">인쇄 창에서 ‘PDF로 저장’을 선택하세요.</p>
+<p id="pdf-status" role="status"></p>
 </form>
 </section>
 </main>
 <footer><div class="wrap bar"><a class="brand" href="./">SEOUL ORATORIO</a><a href="./#contact">지원 문의</a></div></footer>
+<div id="application-print">
+<div class="application-sheet">
+<img class="application-template" src="application-template.png" alt="서울오라토리오 합창단 지원 신청서">
+<div id="application-values"></div>
+</div>
+<section id="application-appendix" hidden>
+<h2>서울오라토리오 합창단 지원 신청서 · 기재 사항 계속</h2>
+<dl id="application-overflow"></dl>
+</section>
+</div>
 <script src="application.js" defer></script>
+<script src="application-print.js" defer></script>
 </body>
 </html>
