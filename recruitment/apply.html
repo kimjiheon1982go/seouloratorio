@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="서울오라토리오 합창단 온라인 지원서입니다.">
+<title>온라인 지원서 | 서울오라토리오</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header><div class="wrap bar"><a class="brand" href="./">SEOUL ORATORIO <small>EST. 1991</small></a><nav aria-label="페이지 메뉴"><a href="./">모집 페이지로 돌아가기</a></nav></div></header>
+<main>
+<section id="apply" class="wrap section split application">
+<div>
+<p class="eyebrow">APPLICATION</p>
+<h1 class="application-title">온라인 지원서</h1>
+<p class="section-note">별표(*)가 표시된 항목은 필수입니다.</p>
+<p class="test-note">테스트 접수용입니다. 테스트 시에는 가상 정보와 테스트 이미지를 사용해 주세요.</p>
+</div>
+<form id="application-form" action="https://formsubmit.co/skysong7788@naver.com" method="post" enctype="multipart/form-data">
+<input type="hidden" name="_subject" value="[서울오라토리오] 합창단 지원서 접수 테스트">
+<input type="hidden" name="_template" value="table">
+<input type="hidden" name="_next" value="https://kimjiheon1982go.github.io/seouloratorio/recruitment/received.html">
+<div hidden><label>비워 두세요 <input name="_honey" tabindex="-1" autocomplete="off"></label></div>
+<fieldset>
+<legend>지원자 정보</legend>
+<div class="form-grid">
+<label>성명(한글) *<input name="성명" autocomplete="name" required maxlength="60"></label>
+<label>성명(한자)<input name="한자 성명" maxlength="60"></label>
+<label>성명(영문)<input name="영문 성명" maxlength="100"></label>
+<label>생년월일 *<input id="birth" type="date" name="생년월일" autocomplete="bday" required></label>
+<label>만 나이 *<input id="age" type="number" name="만 나이" min="0" max="49" required></label>
+<label>지원 파트 *<select name="지원 파트" required><option value="">선택해 주세요</option><option>소프라노</option><option>알토</option><option>테너</option><option>베이스</option></select></label>
+<label>휴대폰 *<input type="tel" name="휴대폰" autocomplete="mobile tel" placeholder="010-0000-0000" minlength="7" maxlength="25" required></label>
+<label>전화번호<input type="tel" name="전화번호" maxlength="25"></label>
+<label class="wide">이메일 *<input type="email" name="이메일" autocomplete="email" maxlength="254" required></label>
+<label>우편번호<input name="우편번호" autocomplete="postal-code" inputmode="numeric" pattern="[0-9]{5}" maxlength="5"></label>
+<label>주소<input name="주소" autocomplete="street-address" maxlength="250"></label>
+<label class="wide">증명사진(3×4cm)<input id="photo" type="file" name="attachment" accept="image/jpeg,image/png"><small>JPG 또는 PNG, 최대 5MB</small></label>
+</div>
+</fieldset>
+<fieldset>
+<legend>학력 및 활동</legend>
+<div class="form-grid">
+<label class="wide">학력 사항<textarea name="학력 사항" rows="3" maxlength="2000" placeholder="재학 기간, 학교, 전공, 졸업 여부를 적어 주세요."></textarea></label>
+<label class="wide">현재 근무처<input name="현재 근무처" maxlength="200" placeholder="근무 시작일과 근무처"></label>
+<label class="wide">입단 경로<input name="입단 경로" maxlength="200"></label>
+<label class="wide">연주 경력과 현재 활동<textarea name="연주 경력과 현재 활동" rows="5" maxlength="3000"></textarea></label>
+</div>
+</fieldset>
+<fieldset>
+<legend>지원 확인</legend>
+<p>위 내용으로 서울오라토리오 합창단에 지원합니다.</p>
+<div class="form-grid signature">
+<label>지원일 *<input id="applied-on" type="date" name="지원일" required></label>
+<label>지원자 서명(이름 입력) *<input name="지원자 서명" required maxlength="60"></label>
+</div>
+<label class="consent"><input type="checkbox" name="개인정보 수집 및 전송 동의" value="동의" required><span>지원서에 입력한 개인정보와 사진이 지원 접수 확인 및 연락을 위해 FormSubmit을 거쳐 지정된 이메일로 전송되는 데 동의합니다. *</span></label>
+</fieldset>
+<button class="button" type="submit">지원서 제출</button>
+</form>
+</section>
+</main>
+<footer><div class="wrap bar"><a class="brand" href="./">SEOUL ORATORIO</a><a href="./#contact">지원 문의</a></div></footer>
+<script src="application.js" defer></script>
+</body>
+</html>

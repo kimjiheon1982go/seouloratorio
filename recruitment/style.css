@@ -81,3 +81,5 @@ legend{padding-inline:8px;font:700 1.2rem var(--serif)}
 .consent input{margin:5px 0 0;width:18px;height:18px;flex:none;accent-color:#795528}
 button.button{font:inherit;font-weight:700;cursor:pointer}
 @media(max-width:540px){.form-grid{grid-template-columns:1fr}fieldset{padding-inline:14px}}
+.application-title{font-size:clamp(2rem,4.5vw,3rem);letter-spacing:-.06em}
+.application-link{padding-block:26px}
