@@ -133,6 +133,16 @@
   .reveal.on{opacity:1;transform:none}
   @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
   @media (max-width:420px){.artists{gap:16px 10px}.part .ttl{font-size:14px}.call .num{font-size:19px}}
+  /* POSTER */
+  .poster-btn{display:none;margin:18px auto 0;align-items:center;gap:8px;padding:11px 24px;background:var(--gold);color:var(--ink);border:0;font:600 15px var(--sans);letter-spacing:.08em;cursor:pointer}
+  .poster-btn.ready{display:inline-flex}
+  .poster-btn:hover,.poster-btn:active{background:var(--gold2)}
+  .pv{position:fixed;inset:0;z-index:50;background:rgba(6,5,4,.94);display:none;align-items:center;justify-content:center;padding:56px 16px calc(24px + env(safe-area-inset-bottom));overflow:auto}
+  .pv.open{display:flex}
+  .pv img{max-width:100%;max-height:100%;object-fit:contain;box-shadow:0 10px 40px rgba(0,0,0,.6)}
+  .pv .x{position:fixed;top:calc(12px + env(safe-area-inset-top));right:12px;width:44px;height:44px;border-radius:50%;border:1px solid var(--gold);background:rgba(15,13,11,.85);color:var(--gold2);font-size:26px;line-height:1;cursor:pointer;display:grid;place-items:center}
+  .pv .x:hover{background:rgba(201,169,106,.2)}
+  body.pv-on{overflow:hidden}
 </style>
 </head>
 <body>
@@ -151,6 +161,7 @@
     <div class="when">2026년 12월 15일 (화) 오후 7시 30분</div>
     <div class="where">호원아트홀 대극장</div>
     <div class="badge">전석 초대</div>
+    <div><button class="poster-btn" type="button" id="posterBtn">포스터 보기</button></div>
     <div class="scroll">SCROLL ↓</div>
   </div>
 </header>
@@ -265,11 +276,24 @@
   </div>
 </nav>
 
+<div class="pv" id="pv" role="dialog" aria-modal="true" aria-label="포스터">
+  <button class="x" type="button" id="pvClose" aria-label="닫기">×</button>
+  <img id="pvImg" alt="헨델《메시아》 특별연주회 포스터">
+</div>
+
 <script>
   const io='IntersectionObserver' in window ? new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}}),{threshold:.12}) : null;
   document.querySelectorAll('.reveal').forEach(el=>io?io.observe(el):el.classList.add('on'));
 
   document.addEventListener('securitypolicyviolation',e=>{if(/google/.test(e.blockedURI||''))document.getElementById('map').classList.add('blocked')});
+  const pv=document.getElementById('pv'),pb=document.getElementById('posterBtn'),pi=document.getElementById('pvImg');
+  const pre=new Image();pre.onload=()=>{pi.src=pre.src;pb.classList.add('ready')};pre.src='poster.jpg';
+  const openPv=()=>{pv.classList.add('open');document.body.classList.add('pv-on')};
+  const closePv=()=>{pv.classList.remove('open');document.body.classList.remove('pv-on')};
+  pb.addEventListener('click',openPv);
+  document.getElementById('pvClose').addEventListener('click',closePv);
+  pv.addEventListener('click',e=>{if(e.target===pv)closePv()});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')closePv()});
   const cb=document.getElementById('copyAddr');
   cb.addEventListener('click',async()=>{try{await navigator.clipboard.writeText('서울특별시 강동구 성안로 30');cb.textContent='복사됨'}catch(_){cb.textContent='복사 불가'}setTimeout(()=>cb.textContent='주소 복사',1800)});
 </script>
