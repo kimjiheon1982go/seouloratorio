@@ -144,9 +144,21 @@
   body.pv-on{overflow:hidden}
   .route-btn{display:table;margin:10px 0 22px;padding:8px 14px;border:1px solid #03c75a;color:#03c75a;font-family:var(--sans);font-size:14px;font-weight:600}
   .route-btn:hover,.route-btn:active{background:rgba(3,199,90,.12)}
+  /* TOP NAV */
+  .topnav{position:fixed;top:0;left:0;right:0;z-index:20;background:rgba(12,10,8,.9);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding-top:env(safe-area-inset-top)}
+  .topnav .in{max-width:720px;margin:0 auto;display:flex;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .topnav .in::-webkit-scrollbar{display:none}
+  .topnav a{flex:1 0 auto;padding:13px 12px;text-align:center;font-size:14px;color:var(--mute);white-space:nowrap;border-bottom:2px solid transparent;transition:color .2s,border-color .2s}
+  .topnav a.on,.topnav a:hover{color:var(--gold2);border-bottom-color:var(--gold)}
+  .hero{padding-top:92px !important}
+  section[id]{scroll-margin-top:50px}
 </style>
 </head>
 <body>
+
+<nav class="topnav" aria-label="섹션 이동"><div class="in">
+  <a href="#about">소개</a><a href="#artists">출연</a><a href="#info">공연정보</a><a href="#contact">문의</a><a href="#location">오시는 길</a>
+</div></nav>
 
 <header class="hero">
   <div class="wrap">
@@ -174,7 +186,7 @@
     </div>
   </section>
 
-  <section>
+  <section id="about">
     <div class="wrap reveal">
       <div class="label">About</div>
       <h2 style="font-weight:400;font-size:clamp(16px,4.2vw,19px);line-height:1.7;color:var(--gold2);opacity:.85;margin-bottom:20px">시대와 세대를 넘어 울려 퍼지는 천상의 하모니<br>세계 3대 오라토리오로 손꼽히는 헨델의 명작《메시아》</h2>
@@ -191,7 +203,7 @@
     </div>
   </section>
 
-  <section>
+  <section id="artists">
     <div class="wrap reveal">
       <div class="label">Artists</div>
       <div class="artists">
@@ -209,7 +221,7 @@
     </div>
   </section>
 
-  <section>
+  <section id="info">
     <div class="wrap reveal">
       <div class="label">Information</div>
       <dl class="info">
@@ -295,6 +307,9 @@
   document.getElementById('pvClose').addEventListener('click',closePv);
   pv.addEventListener('click',e=>{if(e.target===pv)closePv()});
   document.addEventListener('keydown',e=>{if(e.key==='Escape')closePv()});
+  const navA=[...document.querySelectorAll('.topnav a')];
+  if('IntersectionObserver' in window){const no=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){navA.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id));const a=navA.find(a=>a.classList.contains('on'));a&&a.scrollIntoView({inline:'nearest',block:'nearest'})}}),{rootMargin:'-45% 0px -50% 0px'});
+    navA.forEach(a=>{const t=document.querySelector(a.getAttribute('href'));t&&no.observe(t)})}
   const cb=document.getElementById('copyAddr');
   cb.addEventListener('click',async()=>{try{await navigator.clipboard.writeText('서울특별시 강동구 성안로 30');cb.textContent='복사됨'}catch(_){cb.textContent='복사 불가'}setTimeout(()=>cb.textContent='주소 복사',1800)});
 </script>
