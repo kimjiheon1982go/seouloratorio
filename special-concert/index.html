@@ -39,7 +39,7 @@
       radial-gradient(ellipse 60% 45% at 50% 38%, rgba(201,169,106,.16), transparent 70%),
       linear-gradient(180deg,rgba(8,7,5,.6) 0%,transparent 100%);
     position:relative;overflow:hidden;text-align:center}
-  .hero::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:1px;background:linear-gradient(180deg,transparent,var(--line) 20%,var(--line) 80%,transparent)}
+  .hero::before{content:"";pointer-events:none;position:absolute;left:50%;top:0;bottom:0;width:1px;background:linear-gradient(180deg,transparent,var(--line) 20%,var(--line) 80%,transparent)}
   .eyebrow{font-family:var(--latin);letter-spacing:.32em;text-transform:uppercase;font-size:13px;color:var(--gold)}
   .eyebrow-ko{font-family:var(--serif);font-size:15px;color:var(--mute);margin-top:6px;letter-spacing:.12em}
   .title-block{position:relative;background:linear-gradient(180deg,transparent,rgba(14,12,9,.92) 30%,rgba(14,12,9,.92) 70%,transparent);padding:28px 0}
@@ -134,7 +134,7 @@
   @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
   @media (max-width:420px){.artists{gap:16px 10px}.part .ttl{font-size:14px}.call .num{font-size:19px}}
   /* POSTER */
-  .poster-btn{display:inline-flex;margin:18px auto 0;align-items:center;gap:8px;padding:11px 24px;background:var(--gold);color:var(--ink);border:0;font:600 15px var(--sans);letter-spacing:.08em;cursor:pointer}
+  .poster-btn{position:relative;z-index:1;display:inline-flex;margin:18px auto 0;align-items:center;gap:8px;padding:11px 24px;background:var(--gold);color:var(--ink);border:0;font:600 15px var(--sans);letter-spacing:.08em;cursor:pointer}
   .poster-btn:hover,.poster-btn:active{background:var(--gold2)}
   .pv{position:fixed;inset:0;z-index:50;background:rgba(6,5,4,.94);display:none;align-items:center;justify-content:center;padding:56px 16px calc(24px + env(safe-area-inset-bottom));overflow:auto}
   .pv.open{display:flex}
@@ -260,7 +260,7 @@
         <dt>주소</dt><dd>서울특별시 강동구 성안로 30<br>호원대학교 취업지원센터 건물<button class="copy" type="button" id="copyAddr">주소 복사</button></dd>
         <dt>지하철</dt><dd>5호선 둔촌동역 3번 출구<br>도보 약 700m</dd>
         <dt>주차</dt><dd>최초 180분 2,000원<br>이후 60분당 2,000원<br><span style="color:var(--mute);font-size:14px">주차 공간이 한정되어 있으니 대중교통을 이용해 주세요.</span></dd>
-        <dt>인근 주차</dt><dd>강동구청 제2청사 주차장<br>평일 18시 이후 무료 · 공연장까지 도보 약 10분<br><span style="color:var(--mute);font-size:14px">신용카드 결제만 가능</span><br><br>둔촌역 전통시장 공영주차장<br>풍성로54길 21 · 공연장까지 도보 약 8분<br><span style="color:var(--mute);font-size:14px">유료(5분당 150원) · 19면으로 협소</span><br><br>성내전통시장 공영주차장<br>풍성로37가길 31-9 · 공연장까지 도보 약 15분<br><span style="color:var(--mute);font-size:14px">유료(5분당 150원) · 24시간 · 28면</span></dd>
+        <dt>인근 주차</dt><dd><b style="font-weight:600">강동구청 제2청사 주차장</b><br>도보 약 10분 · <b style="color:var(--gold2);font-weight:600">18시 이후 무료</b><br><span style="color:var(--mute);font-size:14px">신용카드 결제만 가능</span><br><br><b style="font-weight:600">둔촌역 전통시장 공영주차장</b><br>도보 약 8분 · 5분당 150원<br><span style="color:var(--mute);font-size:14px">풍성로54길 21 · 19면으로 협소</span><br><br><b style="font-weight:600">성내전통시장 공영주차장</b><br>도보 약 15분 · 5분당 150원<br><span style="color:var(--mute);font-size:14px">풍성로37가길 31-9 · 24시간 · 28면</span></dd>
       </dl>
     </div>
   </section>
