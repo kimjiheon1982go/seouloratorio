@@ -135,8 +135,6 @@
   @media (max-width:420px){.artists{gap:16px 10px}.part .ttl{font-size:14px}.call .num{font-size:19px}}
   /* POSTER */
   .poster-btn{display:inline-flex;margin:18px auto 0;align-items:center;gap:8px;padding:11px 24px;background:var(--gold);color:var(--ink);border:0;font:600 15px var(--sans);letter-spacing:.08em;cursor:pointer}
-  .pv .wait{display:none;font-family:var(--serif);color:var(--gold2);font-size:18px;text-align:center}
-  .pv.empty img{display:none}.pv.empty .wait{display:block}
   .poster-btn:hover,.poster-btn:active{background:var(--gold2)}
   .pv{position:fixed;inset:0;z-index:50;background:rgba(6,5,4,.94);display:none;align-items:center;justify-content:center;padding:56px 16px calc(24px + env(safe-area-inset-bottom));overflow:auto}
   .pv.open{display:flex}
@@ -279,8 +277,7 @@
 
 <div class="pv" id="pv" role="dialog" aria-modal="true" aria-label="포스터">
   <button class="x" type="button" id="pvClose" aria-label="닫기">×</button>
-  <p class="wait">포스터 준비 중입니다.</p>
-  <img id="pvImg" alt="헨델《메시아》 특별연주회 포스터">
+  <img id="pvImg" src="poster.jpg?v=2" alt="헨델《메시아》 특별연주회 포스터">
 </div>
 
 <script>
@@ -289,7 +286,6 @@
 
   document.addEventListener('securitypolicyviolation',e=>{if(/google/.test(e.blockedURI||''))document.getElementById('map').classList.add('blocked')});
   const pv=document.getElementById('pv'),pb=document.getElementById('posterBtn'),pi=document.getElementById('pvImg');
-  pv.classList.add('empty');const pre=new Image();pre.onload=()=>{pi.src=pre.src;pv.classList.remove('empty')};pre.src='poster.jpg';
   const openPv=()=>{pv.classList.add('open');document.body.classList.add('pv-on')};
   const closePv=()=>{pv.classList.remove('open');document.body.classList.remove('pv-on')};
   pb.addEventListener('click',openPv);
