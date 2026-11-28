@@ -142,7 +142,8 @@
   .reveal{opacity:0;transform:translateY(18px);transition:opacity .9s ease,transform .9s ease}
   .reveal.on{opacity:1;transform:none}
   @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
-  @media (max-width:420px){.artists{gap:16px 10px}.part .ttl{font-size:14px}.call .num{font-size:19px}}
+  @media (max-width:560px){.artists{grid-template-columns:repeat(2,1fr);gap:22px 14px}.artist .name{font-size:17px}}
+  @media (max-width:420px){.part .ttl{font-size:14px}.call .num{font-size:19px}}
   /* POSTER */
   .poster-btn{position:relative;z-index:1;display:inline-flex;margin:18px auto 0;align-items:center;gap:8px;padding:11px 24px;background:var(--gold);color:var(--ink);border:0;font:600 15px var(--sans);letter-spacing:.08em;cursor:pointer}
   .poster-btn:hover,.poster-btn:active{background:var(--gold2)}
