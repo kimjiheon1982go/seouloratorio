@@ -142,7 +142,8 @@
   .pv .x{position:fixed;top:calc(12px + env(safe-area-inset-top));right:12px;width:44px;height:44px;border-radius:50%;border:1px solid var(--gold);background:rgba(15,13,11,.85);color:var(--gold2);font-size:26px;line-height:1;cursor:pointer;display:grid;place-items:center}
   .pv .x:hover{background:rgba(201,169,106,.2)}
   body.pv-on{overflow:hidden}
-  .route{display:block;width:100%;height:auto;cursor:zoom-in;margin:10px 0 4px;border:1px solid var(--line);border-radius:4px}
+  .route-btn{display:table;margin:10px 0 22px;padding:8px 14px;border:1px solid #03c75a;color:#03c75a;font-family:var(--sans);font-size:14px;font-weight:600}
+  .route-btn:hover,.route-btn:active{background:rgba(3,199,90,.12)}
 </style>
 </head>
 <body>
@@ -261,7 +262,7 @@
         <dt>주소</dt><dd>서울특별시 강동구 성안로 30<br>호원대학교 취업지원센터 건물<button class="copy" type="button" id="copyAddr">주소 복사</button></dd>
         <dt>지하철</dt><dd>5호선 둔촌동역 3번 출구<br>도보 약 700m</dd>
         <dt>주차</dt><dd>최초 180분 2,000원<br>이후 60분당 2,000원<br><span style="color:var(--mute);font-size:14px">주차 공간이 한정되어 있으니 대중교통을 이용해 주세요.</span></dd>
-        <dt>인근 주차</dt><dd><b style="font-weight:600">강동구청 제2청사 주차장</b><br>도보 약 10분(648m)<br><b style="color:var(--gold2);font-weight:600">18시 이후 무료</b><br><span style="color:var(--mute);font-size:14px">신용카드 결제만 가능</span><img class="route" src="route-gangdong.jpg" alt="강동구청 제2청사 주차장에서 호원아트홀까지 도보 경로" loading="lazy" width="732" height="450"><br><b style="font-weight:600">둔촌역 전통시장 공영주차장</b><br>도보 약 8분(526m)<br><span style="color:var(--mute);font-size:14px">5분당 150원 · 19면으로 협소<br>풍성로54길 21</span><img class="route" src="route-dunchon.jpg" alt="둔촌역 전통시장 공영주차장에서 호원아트홀까지 도보 경로" loading="lazy" width="732" height="450"><br><b style="font-weight:600">성내전통시장 공영주차장</b><br>도보 약 15분(1km)<br><span style="color:var(--mute);font-size:14px">5분당 150원 · 24시간 · 28면<br>풍성로37가길 31-9</span><img class="route" src="route-seongnae.jpg" alt="성내전통시장 공영주차장에서 호원아트홀까지 도보 경로" loading="lazy" width="732" height="450"></dd>
+        <dt>인근 주차</dt><dd><b style="font-weight:600">강동구청 제2청사 주차장</b><br>도보 약 10분(648m)<br><b style="color:var(--gold2);font-weight:600">18시 이후 무료</b><br><span style="color:var(--mute);font-size:14px">신용카드 결제만 가능</span><a class="route-btn" href="https://naver.me/x6J9wunS" target="_blank" rel="noopener">네이버 지도로 길찾기 ↗</a><b style="font-weight:600">둔촌역 전통시장 공영주차장</b><br>도보 약 8분(526m)<br><span style="color:var(--mute);font-size:14px">5분당 150원 · 19면으로 협소<br>풍성로54길 21</span><a class="route-btn" href="https://naver.me/xllNSwiZ" target="_blank" rel="noopener">네이버 지도로 길찾기 ↗</a><b style="font-weight:600">성내전통시장 공영주차장</b><br>도보 약 15분(1km)<br><span style="color:var(--mute);font-size:14px">5분당 150원 · 24시간 · 28면<br>풍성로37가길 31-9</span><a class="route-btn" href="https://naver.me/Fhu9YzBF" target="_blank" rel="noopener">네이버 지도로 길찾기 ↗</a></dd>
       </dl>
     </div>
   </section>
@@ -291,7 +292,6 @@
   const openPv=()=>{pv.classList.add('open');document.body.classList.add('pv-on')};
   const closePv=()=>{pv.classList.remove('open');document.body.classList.remove('pv-on')};
   pb.addEventListener('click',()=>{pi.src='poster.jpg?v=2';pi.alt='헨델《메시아》 특별연주회 포스터';openPv()});
-  document.querySelectorAll('img.route').forEach(r=>r.addEventListener('click',()=>{pi.src=r.src;pi.alt=r.alt;openPv()}));
   document.getElementById('pvClose').addEventListener('click',closePv);
   pv.addEventListener('click',e=>{if(e.target===pv)closePv()});
   document.addEventListener('keydown',e=>{if(e.key==='Escape')closePv()});
